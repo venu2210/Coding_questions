@@ -27,17 +27,18 @@ module frequency_divider (
    output logic o_freq_by_odd
     );
     
-   localparam int N  = 7;
-   localparam int N1 = (N-1)/2;
-   localparam int M  = 12;
+   localparam int        N  = 7;
+   localparam int        N1 = (N-1)/2;
+   localparam int        M  = 12;
    logic [$clog2(M)+2:0] count;
    logic [$clog2(N)+2:0] count1;
-   logic       n1;
-   logic       n2;
+   logic                 n1;
+   logic                 n2;
    
    
    //for frequency divided by 2,4,6,8,10
-   // This logic is for frequency divided by 4
+   // This logic is for frequency divided by M
+   //Here M is parameteric and should be even starts from 2.
    always_ff @(posedge i_clk) begin
       if(i_rst) begin
          count       <= 0;
@@ -56,7 +57,8 @@ module frequency_divider (
    
    
    //for frequency divided by 3,5,7.... follow this logic 
-   //this logic is for frequency divided by 3
+   //this logic is for frequency divided by N
+   //Here N is odd and N starts from 3
    always_ff @(posedge i_clk) begin
       if(i_rst) begin
          n1     <= 0;
